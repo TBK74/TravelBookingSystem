@@ -1,45 +1,49 @@
-package com.tourbooking.servlet;
-
-import com.tourbooking.dao.TourDAO;
+package controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
+import model.Category;
+import model.Location;
+import model.Tour;
+import dao.CategoryDAO;
+import dao.LocationDAO;
+import dao.TourDAO;
+
 import java.io.IOException;
+import java.util.List;
 
 /**
- * Servlet implementation class HomeServlet
+ * Servlet hiển thị trang chủ
+ * URL: / hoặc /home
  */
-@WebServlet("/HomeServlet")
+@WebServlet(urlPatterns = {"/", "/home"})
 public class HomeServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HomeServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    private static final long serialVersionUID = 1L;
+    
+    private TourDAO tourDAO = new TourDAO();
+    private CategoryDAO categoryDAO = new CategoryDAO();
+    private LocationDAO locationDAO = new LocationDAO();
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        // Lấy danh sách tours
+        List<Tour> tours = tourDAO.getAllTours();
+        
+        // Lấy danh sách categories
+        List<Category> categories = categoryDAO.getAllCategories();
+        
+        // Lấy danh sách locations
+        List<Location> locations = locationDAO.getAllLocations();
+        
+        // Set attributes để sử dụng trong JSP
+        request.setAttribute("tours", tours);
+        request.setAttribute("categories", categories);
+        request.setAttribute("locations", locations);
+        
+        // Forward đến trang home.jsp
+        request.getRequestDispatcher("/views/customer/home.jsp").forward(request, response);
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		TourDAO tourDAO = new TourDAO();
-        request.setAttribute("tours", tourDAO.getAllTours());
-        request.getRequestDispatcher("/home.jsp").forward(request, response);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

@@ -1,48 +1,63 @@
-package com.tourbooking.servlet;
-
-import com.tourbooking.dao.TourDAO;
-import com.tourbooking.model.Tour;
+package controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
+import model.Tour;
+import model.TourSchedule;
+import dao.TourDAO;
+
 import java.io.IOException;
+import java.util.List;
 
 /**
- * Servlet implementation class TourDetailServlet
+ * Servlet hiển thị chi tiết tour
+ * URL: /tour-detail?id=xxx
  */
-@WebServlet("/TourDetailServlet")
+@WebServlet("/tour-detail")
 public class TourDetailServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TourDetailServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    private static final long serialVersionUID = 1L;
+    
+    private TourDAO tourDAO = new TourDAO();
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        // Lấy tour ID từ parameter
+        String tourIdStr = request.getParameter("id");
+        
+        if (tourIdStr == null || tourIdStr.trim().isEmpty()) {
+            // Không có ID -> chuyển về trang tours
+            response.sendRedirect(request.getContextPath() + "/tours");
+            return;
+        }
+        
+        try {
+            Long tourId = Long.parseLong(tourIdStr);
+            
+            // Lấy thông tin tour
+            Tour tour = tourDAO.findById(tourId);
+            
+            if (tour == null || !tour.isActive()) {
+                // Tour không tồn tại hoặc không hoạt động
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Tour không tồn tại!");
+                return;
+            }
+            
+            // Lấy lịch khởi hành của tour
+            List<TourSchedule> schedules = tourDAO.getSchedulesByTourId(tourId);
+            
+            // Set attributes
+            request.setAttribute("tour", tour);
+            request.setAttribute("schedules", schedules);
+            
+            // Forward đến JSP
+            request.getRequestDispatcher("/views/customer/tourDetail.jsp").forward(request, response);
+            
+        } catch (NumberFormatException e) {
+            // ID không hợp lệ
+            response.sendRedirect(request.getContextPath() + "/tours");
+        }
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int tourID = Integer.parseInt(request.getParameter("tourID"));
-        TourDAO tourDAO = new TourDAO();
-        Tour tour = tourDAO.getTourByID(tourID);
-        request.setAttribute("tour", tour);
-        request.getRequestDispatcher("/tourDetail.jsp").forward(request, response);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }
