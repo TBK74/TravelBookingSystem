@@ -1,4 +1,9 @@
 # HỆ THỐNG ĐẶT TOUR DU LỊCH TRỰC TUYẾN
+Xây dựng một ứng dụng web quản lý và đặt tour du lịch trực tuyến
+MỤC TIÊU:
+- Xây dựng website đặt tour du lịch trực tuyến 
+- Quản lý tours, bookings, khách hàng 
+- Phân quyền: Admin và Customer
 
 ## Thành viên
 - Trần Bá Khôi - 23130158
@@ -8,6 +13,22 @@
 - Java Servlet + JSP
 - SQL Server
 - Eclipse + Tomcat 10
+
+##TÍNH NĂNG CHÍNH
+Khách Hàng:
+- Xem danh sách tours
+- Tìm kiếm, lọc tours
+- Xem chi tiết tour
+- Đăng ký tài khoản
+- Đăng nhập/Đăng xuất
+- Đặt tour
+- Xem đơn đặt tour của mình
+- Hủy đơn đặt tour
+
+Quản Trị:
+- Dashboard thống kê
+- Xem danh sách bookings
+- Xem danh sách tours
 
 ## Cấu trúc thư mục
 README.md
@@ -93,4 +114,5 @@ TravelBookingSystem/
 │
 └── database/
     └── travel_db.sql
+
 
