@@ -1,62 +1,161 @@
-package com.tourbooking.model;
+package model;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
 
-public class Booking {
-	private int bookingID;
-	private int userID;
-	private int tourID;
-	private Date bookingDate;
-	private String status;
+/**
+ * Lớp Booking đại diện cho một yêu cầu đặt tour
+ */
+public class Booking implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    private Long id;
+    private String bookingCode;
+    private Long customerId;
+    private Long tourId;
+    private Long scheduleId;
+    private Date departureDate;
+    private int numAdults;
+    private int numChildren;
+    private BigDecimal totalPrice;
+    private String status;  // PENDING, CONFIRMED, CANCELLED
+    private String specialRequests;
+    private Timestamp bookingDate;
+    private Timestamp createdAt;
+    
+    // Thông tin liên kết
+    private String customerName;
+    private String tourTitle;
 
-	public Booking() {
-	}
+    // Constructor
+    public Booking() {
+    }
 
-	public Booking(int bookingID, int userID, int tourID, Date bookingDate, String status) {
-		this.bookingID = bookingID;
-		this.userID = userID;
-		this.tourID = tourID;
-		this.bookingDate = bookingDate;
-		this.status = status;
-	}
+    // Getter và Setter
+    public Long getId() { 
+        return id; 
+    }
+    
+    public void setId(Long id) { 
+        this.id = id; 
+    }
 
-	public int getBookingID() {
-		return bookingID;
-	}
+    public String getBookingCode() { 
+        return bookingCode; 
+    }
+    
+    public void setBookingCode(String bookingCode) { 
+        this.bookingCode = bookingCode; 
+    }
 
-	public void setBookingID(int bookingID) {
-		this.bookingID = bookingID;
-	}
+    public Long getCustomerId() { 
+        return customerId; 
+    }
+    
+    public void setCustomerId(Long customerId) { 
+        this.customerId = customerId; 
+    }
 
-	public int getUserID() {
-		return userID;
-	}
+    public Long getTourId() { 
+        return tourId; 
+    }
+    
+    public void setTourId(Long tourId) { 
+        this.tourId = tourId; 
+    }
 
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
+    public Long getScheduleId() { 
+        return scheduleId; 
+    }
+    
+    public void setScheduleId(Long scheduleId) { 
+        this.scheduleId = scheduleId; 
+    }
 
-	public int getTourID() {
-		return tourID;
-	}
+    public Date getDepartureDate() { 
+        return departureDate; 
+    }
+    
+    public void setDepartureDate(Date departureDate) { 
+        this.departureDate = departureDate; 
+    }
 
-	public void setTourID(int tourID) {
-		this.tourID = tourID;
-	}
+    public int getNumAdults() { 
+        return numAdults; 
+    }
+    
+    public void setNumAdults(int numAdults) { 
+        this.numAdults = numAdults; 
+    }
 
-	public Date getBookingDate() {
-		return bookingDate;
-	}
+    public int getNumChildren() { 
+        return numChildren; 
+    }
+    
+    public void setNumChildren(int numChildren) { 
+        this.numChildren = numChildren; 
+    }
 
-	public void setBookingDate(Date bookingDate) {
-		this.bookingDate = bookingDate;
-	}
+    public BigDecimal getTotalPrice() { 
+        return totalPrice; 
+    }
+    
+    public void setTotalPrice(BigDecimal totalPrice) { 
+        this.totalPrice = totalPrice; 
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getStatus() { 
+        return status; 
+    }
+    
+    public void setStatus(String status) { 
+        this.status = status; 
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getSpecialRequests() { 
+        return specialRequests; 
+    }
+    
+    public void setSpecialRequests(String specialRequests) { 
+        this.specialRequests = specialRequests; 
+    }
+
+    public Timestamp getBookingDate() { 
+        return bookingDate; 
+    }
+    
+    public void setBookingDate(Timestamp bookingDate) { 
+        this.bookingDate = bookingDate; 
+    }
+
+    public Timestamp getCreatedAt() { 
+        return createdAt; 
+    }
+    
+    public void setCreatedAt(Timestamp createdAt) { 
+        this.createdAt = createdAt; 
+    }
+
+    public String getCustomerName() { 
+        return customerName; 
+    }
+    
+    public void setCustomerName(String customerName) { 
+        this.customerName = customerName; 
+    }
+
+    public String getTourTitle() { 
+        return tourTitle; 
+    }
+    
+    public void setTourTitle(String tourTitle) { 
+        this.tourTitle = tourTitle; 
+    }
+
+    // Phương thức tiện ích
+    public int getTotalParticipants() {
+        return numAdults + numChildren;
+    }
 }

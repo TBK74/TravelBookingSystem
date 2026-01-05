@@ -1,86 +1,178 @@
-package com.tourbooking.model;
+package model;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
-public class Tour {
-	private int tourID;
-	private String tourName;
-	private String description;
-	private double price;
-	private Date startDate;
-	private Date endDate;
-	private String location;
+/**
+ * Lớp Tour đại diện cho một chương trình tour du lịch
+ */
+public class Tour implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    private Long id;
+    private String title;
+    private String description;
+    private Long categoryId;
+    private Long locationId;
+    private int durationDays;
+    private int durationNights;
+    private String transportation;
+    private String departureLocation;
+    private BigDecimal priceAdult;
+    private BigDecimal priceChild;
+    private int maxParticipants;
+    private String imageUrl;
+    private boolean isActive;
+    private Timestamp createdAt;
+    
+    // Thông tin liên kết (sẽ được load khi cần)
+    private String categoryName;
+    private String locationName;
 
-	public Tour() {
-		super();
-	}
+    // Constructor
+    public Tour() {
+    }
 
-	public Tour(int tourID, String tourName, String description, double price, Date startDate, Date endDate,
-			String location) {
-		super();
-		this.tourID = tourID;
-		this.tourName = tourName;
-		this.description = description;
-		this.price = price;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.location = location;
-	}
+    // Getter và Setter
+    public Long getId() { 
+        return id; 
+    }
+    
+    public void setId(Long id) { 
+        this.id = id; 
+    }
 
-	public int getTourID() {
-		return tourID;
-	}
+    public String getTitle() { 
+        return title; 
+    }
+    
+    public void setTitle(String title) { 
+        this.title = title; 
+    }
 
-	public void setTourID(int tourID) {
-		this.tourID = tourID;
-	}
+    public String getDescription() { 
+        return description; 
+    }
+    
+    public void setDescription(String description) { 
+        this.description = description; 
+    }
 
-	public String getTourName() {
-		return tourName;
-	}
+    public Long getCategoryId() { 
+        return categoryId; 
+    }
+    
+    public void setCategoryId(Long categoryId) { 
+        this.categoryId = categoryId; 
+    }
 
-	public void setTourName(String tourName) {
-		this.tourName = tourName;
-	}
+    public Long getLocationId() { 
+        return locationId; 
+    }
+    
+    public void setLocationId(Long locationId) { 
+        this.locationId = locationId; 
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public int getDurationDays() { 
+        return durationDays; 
+    }
+    
+    public void setDurationDays(int durationDays) { 
+        this.durationDays = durationDays; 
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public int getDurationNights() { 
+        return durationNights; 
+    }
+    
+    public void setDurationNights(int durationNights) { 
+        this.durationNights = durationNights; 
+    }
 
-	public double getPrice() {
-		return price;
-	}
+    public String getTransportation() { 
+        return transportation; 
+    }
+    
+    public void setTransportation(String transportation) { 
+        this.transportation = transportation; 
+    }
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
+    public String getDepartureLocation() { 
+        return departureLocation; 
+    }
+    
+    public void setDepartureLocation(String departureLocation) { 
+        this.departureLocation = departureLocation; 
+    }
 
-	public Date getStartDate() {
-		return startDate;
-	}
+    public BigDecimal getPriceAdult() { 
+        return priceAdult; 
+    }
+    
+    public void setPriceAdult(BigDecimal priceAdult) { 
+        this.priceAdult = priceAdult; 
+    }
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
+    public BigDecimal getPriceChild() { 
+        return priceChild; 
+    }
+    
+    public void setPriceChild(BigDecimal priceChild) { 
+        this.priceChild = priceChild; 
+    }
 
-	public Date getEndDate() {
-		return endDate;
-	}
+    public int getMaxParticipants() { 
+        return maxParticipants; 
+    }
+    
+    public void setMaxParticipants(int maxParticipants) { 
+        this.maxParticipants = maxParticipants; 
+    }
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+    public String getImageUrl() { 
+        return imageUrl; 
+    }
+    
+    public void setImageUrl(String imageUrl) { 
+        this.imageUrl = imageUrl; 
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public boolean isActive() { 
+        return isActive; 
+    }
+    
+    public void setActive(boolean active) { 
+        isActive = active; 
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public Timestamp getCreatedAt() { 
+        return createdAt; 
+    }
+    
+    public void setCreatedAt(Timestamp createdAt) { 
+        this.createdAt = createdAt; 
+    }
 
+    public String getCategoryName() { 
+        return categoryName; 
+    }
+    
+    public void setCategoryName(String categoryName) { 
+        this.categoryName = categoryName; 
+    }
+
+    public String getLocationName() { 
+        return locationName; 
+    }
+    
+    public void setLocationName(String locationName) { 
+        this.locationName = locationName; 
+    }
+
+    // Phương thức tiện ích
+    public String getDuration() {
+        return durationDays + " ngày " + durationNights + " đêm";
+    }
 }
