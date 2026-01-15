@@ -9,7 +9,6 @@ import model.Tour;
 import model.TourSchedule;
 import model.User;
 import dao.BookingDAO;
-import dao.CustomerDAO;
 import dao.TourDAO;
 import util.BookingCodeGenerator;
 
@@ -29,7 +28,6 @@ public class BookingServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     private TourDAO tourDAO = new TourDAO();
-    private CustomerDAO customerDAO = new CustomerDAO();
     private BookingDAO bookingDAO = new BookingDAO();
     
     /**
