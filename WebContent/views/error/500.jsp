@@ -3,8 +3,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Không Tìm Thấy Trang</title>
+    <title>500 - Lỗi Server</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -12,7 +11,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
         }
         .error-container {
@@ -28,11 +27,11 @@
 </head>
 <body>
     <div class="error-container">
-        <h1 class="error-code">404</h1>
-        <h2>Không Tìm Thấy Trang</h2>
-        <p class="lead">Trang bạn đang tìm kiếm không tồn tại.</p>
+        <h1 class="error-code">500</h1>
+        <h2>Lỗi Máy Chủ</h2>
+        <p class="lead">Đã xảy ra lỗi khi xử lý yêu cầu của bạn.</p>
         <a href="${pageContext.request.contextPath}/" class="btn btn-light btn-lg mt-4">
-            <i class="fas fa-home"></i> Về Trang Chủ
+            Về Trang Chủ
         </a>
     </div>
 </body>
